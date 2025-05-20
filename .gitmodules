@@ -1,0 +1,3 @@
+[submodule "lib/shogle"]
+	path = lib/shogle
+	url = https://github.com/nesktf/shogle.git

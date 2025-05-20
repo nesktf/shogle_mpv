@@ -1,0 +1,15 @@
+[_PROJECT]
+env=["GTEST_COLOR=1"]
+run=""
+clean="rm -rf ./build"
+build="make -C build -j4"
+config="cmake -B build -DSHOGLE_ENABLE_IMGUI=1"
+target="shogle_mpv"
+target_config="debug"
+
+[shogle_mpv]
+run="mangohud --dlsym ./build/shogle_mpv"
+
+[shogle_mpv.configs]
+debug=["-DCMAKE_BUILD_TYPE=Debug"]
+release=["-DCMAKE_BUILD_TYPE=Release"]

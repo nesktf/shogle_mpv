@@ -4,22 +4,24 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -Wall -Wextra -Wpedantic -O0 -g2 -ggdb -Wno-psabi")
 set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -Wall -Wextra -Wpedantic -O3 -Wno-psabi")
 
-project(cpp_base CXX C)
+project(shogle_mpv CXX C)
 
-# set(LIBS_DIR "lib/")
 set(LIBS_INCLUDE)
 set(LIBS_LINK)
 
-## For CMake dependencies
+set(SHOGLE_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/shogle")
+add_subdirectory(${SHOGLE_LIB})
+list(APPEND LIBS_INCLUDE "${SHOGLE_LIB}/include")
+list(APPEND LIBS_LINK shogle)
+
 find_package(fmt REQUIRED)
 list(APPEND LIBS_INCLUDE ${FMT_INCLUDE_DIRS})
 list(APPEND LIBS_LINK fmt)
 
-## For PkgConfig
-# find_package(PkgConfig REQUIRED)
-# pkg_search_module(GLFW REQUIRED glfw3)
-# list(APPEND SHOGLE_LIB_INCLUDE ${GLFW_INCLUDE_DIRS})
-# list(APPEND SHOGLE_LIB_LINK glfw)
+find_package(PkgConfig REQUIRED)
+pkg_search_module(MPV REQUIRED mpv)
+list(APPEND LIBs_INCLUDE ${MPV_INCLUDE_DIRS})
+list(APPEND LIBS_LINK ${MPV_LIBRARIES})
 
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp")
 
